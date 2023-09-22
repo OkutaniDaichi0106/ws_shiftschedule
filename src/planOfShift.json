@@ -1,0 +1,19 @@
+{
+	"month":"202309",
+	"employee":[{
+		"id": "this.userId",
+		"name": "this.userName",
+		"type": "this.userType",
+		"shift_day":[{"date":4, "am-pm":"am"},{"date":10, "am-pm":"pm"},{"date":11, "am-pm":"holiday"}],
+		"shift_night":[{"date":4, "am-pm":"am"},{"date":10, "am-pm":"pm"}],
+		"holiday":[]
+	},
+	{
+		"id": "this.userId",
+		"name": "this.userName",
+		"type": "this.userType",
+		"shift_day":[{"date":4, "am-pm":"am"},{"date":10, "am-pm":"pm"},{"date":11, "am-pm":"holiday"}],
+		"shift_night":[{"date":4, "am-pm":"am"},{"date":10, "am-pm":"pm"}],
+		"holiday":[]
+	}]
+}

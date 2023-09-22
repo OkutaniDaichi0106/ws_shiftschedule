@@ -1,0 +1,15 @@
+td[status="全日"]{
+	background-color: rgb(250, 250, 250);
+}
+td[status="午前"]{
+	background-color: rgb(200, 200, 200);
+}
+td[status="午後"]{
+	background-color: rgb(150, 150, 150);
+}
+td[status="夜勤"]{
+	background-color: rgb(100, 100, 100);
+}
+td[status="休日"]{
+	background-color: rgb(50, 50, 50);
+}
