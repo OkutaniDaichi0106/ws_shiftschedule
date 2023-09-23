@@ -1,5 +1,4 @@
-const week = ["日","月","火","水","木","金","土"];
-//const workstyle = ["全日","午前","午後","夜勤"];
+const moduleInConfigJS = require("./config.js");
 
 class Calendar{//カレンダーの編集に関するクラス
 	constructor(){
@@ -21,6 +20,7 @@ class Calendar{//カレンダーの編集に関するクラス
 		this.workstyle = this.shift.WORKSTYLE;
 	}
 	createCalendarTable(){//
+		const week = ["日","月","火","水","木","金","土"];
 		const dayOfTheFirstDate_day = this.firstDate.getDay();
 			//一日の曜日を表す整数。
 			//0:日, 1:月, 2:火, 3:水, 4:木, 5:金, 6:土 と対応する
@@ -132,8 +132,37 @@ class Shift{//シフト管理に関するクラス
 				shift_JSON.employee.holiday.push({"date":i});
 			}
 		}
-		console.log(shift_JSON);
-		
+
+		//WebAPIに投げて、Pythonに処理してもらう
+		new RequestToPythonApi.postShiftJson();
+	}
+}
+class RequestToPythonApi{
+	constructor(){
+		console.log("RequestToPythonApi()...");
+		this.PythonApiUrl = moduleInConfigJS.PythonApiUrl;
+		console.log(this.PythonApiUrl);
+	}
+	postShiftJson(shiftData_json){
+		fetch(this.PythonApiUrl, 
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(shiftData_json)
+			}
+		)
+		.then(
+			(response) => {return response.json();}
+		)
+		.then(
+			(data) => {
+				console.log("get data");
+			}
+		).catch(error => {
+			console.error("Error:", error);
+		});
 	}
 }
 const shift = new Shift();
