@@ -91,6 +91,7 @@ class Calendar{//カレンダーの編集に関するクラス
 
 		this.#changeStatusAttribute(date,newStatus);//HTMLのstatus要素の値を変える。
 		this.shift.changeStatus(date, newStatus);
+		new LIFF().closeWindow;
 	}
 }
 
@@ -203,6 +204,9 @@ class LIFF{
 		).catch(
 			function(error){window.alert("ERROR at sendMessagesToLine()",error)}
 		);
+	}
+	closeWindow(){
+		liff.closeWindow();
 	}
 }
 const shift = new Shift();
