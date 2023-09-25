@@ -134,8 +134,8 @@ class Shift{//シフト管理に関するクラス
 		}
 
 		//WebAPIに投げて、Pythonに処理してもらう
-		new UploadToServer().postShiftJson(shift_JSON);
 		new LIFF().closeWindow();
+		new UploadToServer().postShiftJson(shift_JSON);
 	}
 }
 class UploadToServer{
@@ -159,18 +159,22 @@ class UploadToServer{
 			(data) => {
 				console.log("get data");
 			}
-		).catch(error => {
-			console.error("Error:", error);
-		});
+		).catch(
+			(error) => {
+				console.error("Error:", error);
+			}
+		);
 	}
 }
 class LIFF{
 	constructor(){
+		console.log("LIFF()...");
 		liff.init(
 			{liffId: LIFF_ID}
 		).then(
 			() =>{
 				const profile_JSON = this.getProfileJSON();
+				document.getElementById("console").textContent = profile_JSON;
 				this.sendMessagesToLine(profile_JSON.userName);
 			}
 		);
@@ -189,17 +193,18 @@ class LIFF{
 			}
 		).catch(
 			(error) => {
-				window.alart("ERROR at getProfile()", error)
+				window.alert("ERROR at getProfile()", error)
 			}
 		);
 	}
 	sendMessagesToLine(userName){//アプリを開いたトークルームにメッセージを送信するメソッド
+		console.log("sendMessagesToLine()...");
 		const messages = [{
 			type: "text", 
 			text: userName+"がシフト希望を送信しました。"
 		}];
 		liff.sendMessages(messages).then(
-			function(){window.alart("送信完了");}
+			function(){window.alert("送信完了");}
 		).catch(
 			function(error){window.alert("ERROR at sendMessagesToLine()",error)}
 		);
@@ -210,7 +215,7 @@ class LIFF{
 }
 const shift = new Shift();
 const calendar = new Calendar();
+
 calendar.setShift(shift);
 window.onload = calendar.createCalendarTable();
 document.getElementById("confirm").addEventListener("click", (e)=> {shift.confirmShift()});//確定ボタンのクリックイベントを追加;
-new LIFF();
