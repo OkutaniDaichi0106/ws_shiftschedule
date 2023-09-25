@@ -199,7 +199,10 @@ class LIFF{
 			text: this.userName + "がシフト希望を送信しました。ユーザーIDは" + this.userId + "です。",
 		}];
 		liff.sendMessages(messages).then(
-			function(){window.alert("送信完了");}
+			function(){
+				window.alert("送信完了");
+				new LIFF().closeWindow();
+			}
 		).catch(
 			function(error){window.alert("ERROR at sendMessagesToLine()",error)}
 		);
