@@ -1,6 +1,4 @@
-import SERVER_URL from "./config.js";
-import LIFF_ID from "./config.js";
-import { liff } from "@line/liff/core/index.js";
+import {SERVER_URL, LIFF_ID} from "./config.js";
 
 class Calendar{//カレンダーの編集に関するクラス
 	constructor(){
