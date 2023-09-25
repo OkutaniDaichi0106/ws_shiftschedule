@@ -134,7 +134,7 @@ class Shift{//シフト管理に関するクラス
 		}
 
 		//WebAPIに投げて、Pythonに処理してもらう
-		new UploadToServer.postShiftJson();
+		new UploadToServer.postShiftJson(shift_JSON);
 		new LIFF().closeWindow;
 	}
 }
