@@ -1,5 +1,3 @@
-// const { default: liff } = require("@line/liff");
-// const moduleInConfigJS = require("./config.js");
 import { SERVER_URL } from "./config.js";
 import { LIFF_ID } from "./config.js";
 
@@ -93,7 +91,6 @@ class Calendar{//カレンダーの編集に関するクラス
 
 		this.#changeStatusAttribute(date,newStatus);//HTMLのstatus要素の値を変える。
 		this.shift.changeStatus(date, newStatus);
-		new LIFF().closeWindow;
 	}
 }
 
@@ -139,6 +136,7 @@ class Shift{//シフト管理に関するクラス
 
 		//WebAPIに投げて、Pythonに処理してもらう
 		new UploadToServer.postShiftJson();
+		new LIFF().closeWindow;
 	}
 }
 class UploadToServer{
