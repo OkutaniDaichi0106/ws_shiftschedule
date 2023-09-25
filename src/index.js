@@ -1,5 +1,7 @@
-const { default: liff } = require("@line/liff");
-const moduleInConfigJS = require("./config.js");
+// const { default: liff } = require("@line/liff");
+// const moduleInConfigJS = require("./config.js");
+import { SERVER_URL } from "./config.js";
+import { LIFF_ID } from "./config.js";
 
 class Calendar{//カレンダーの編集に関するクラス
 	constructor(){
@@ -144,7 +146,7 @@ class UploadToServer{
 		console.log("UploadToApi()...");
 	}
 	postShiftJson(shiftData_json){
-		fetch(moduleInConfigJS.SERVER_URL, 
+		fetch(SERVER_URL, 
 			{
 				method: "POST",
 				headers: {
@@ -168,7 +170,7 @@ class UploadToServer{
 class LIFF{
 	constructor(){
 		liff.init(
-			{liffId: moduleInConfigJS.LIFF_ID}
+			{liffId: LIFF_ID}
 		).then(
 			() =>{
 				const profile_JSON = this.getProfileJSON();
