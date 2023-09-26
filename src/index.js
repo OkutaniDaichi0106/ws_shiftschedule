@@ -1,7 +1,4 @@
-import { promises } from "dns";
 import {SERVER_URL, LIFF_ID} from "./config.js";
-import { resolve } from "path";
-import { rejects } from "assert";
 
 class Calendar{//カレンダーの編集に関するクラス
 	constructor(){
@@ -138,12 +135,12 @@ class Shift{//シフト管理に関するクラス
 
 		//WebAPIに投げて、Pythonに処理してもらう
 		new Promise((resolve)=>{
-				new LIFF();
+				const liff = new LIFF();
 				new UploadToServer().postShiftJson(shift_JSON);
-				resolve();
+				return liff;
 			}
-		).then(()=>{
-				new LIFF().closeWindow();
+		).then((liff)=>{
+				liff.closeWindow();
 			}
 		).catch(()=>{
 			window.alert("シフト送信に失敗しました。");
