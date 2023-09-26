@@ -134,8 +134,9 @@ class Shift{//シフト管理に関するクラス
 		}
 
 		//WebAPIに投げて、Pythonに処理してもらう
-		new LIFF();//.closeWindow();
+		const liff = new LIFF();
 		new UploadToServer().postShiftJson(shift_JSON);
+		liff.closeWindow();
 	}
 }
 class UploadToServer{
@@ -169,36 +170,47 @@ class UploadToServer{
 class LIFF{
 	constructor(){
 		console.log("LIFF()...");
-		this.userName;
-		this.userId;
 		liff.init(
 			{liffId: LIFF_ID}
 		)
-		.then(() => {this.getProfileJSON();
-			window.alert(this.userName+"---"+this.userId);
+		.then(() => {
+			const profile_JSON = this.getProfileJSON();
+			return profile_JSON;
 		})
-		.then(() => {this.sendMessagesToLine();});
+		.then((profile_JSON) => {
+			const messages = this.setMessages(profile_JSON);
+			this.sendMessagesToLine(messages);
+		});
 	}
 	getProfileJSON(){//個人がLINEに登録しているプロフィールを取得するメソッド
 		console.log("getProfileJSON()...");
+		const profile_JSON = {//戻り値のJSON
+			"userId": "userId",
+			"userName": "userName",
+		}
 		liff.getProfile()
 		.then((profile) => {
-				this.userId = profile.userId;
-				this.userName = profile.displayName;
+				profile_JSON.userId = profile.userId;
+				profile_JSON.userName = profile.displayName;
 			}
-		)
-		.catch(
+		).catch(
 			(error) => {window.alert("ERROR at getProfile()", error)}
 		);
+
+		return JSON.stringify(profile_JSON);
 	}
-	sendMessagesToLine(){//アプリを開いたトークルームにメッセージを送信するメソッド
-		console.log("sendMessagesToLine()...");
+	setMessages(profile_JSON){
+		console.log("setMessages()...");
 		const messages = [{
 			type: "text", 
-			text: this.userName + "がシフト希望を送信しました。ユーザーIDは" + this.userId + "です。",
+			text: profile_JSON.userName + "がシフト希望を送信しました。ユーザーIDは" + profile_JSON.userId + "です。",
 		}];
-		liff.sendMessages(messages).then(
-			function(){
+		return messages;
+	}
+	sendMessagesToLine(messages){//アプリを開いたトークルームにメッセージを送信するメソッド
+		console.log("sendMessagesToLine()...");
+		liff.sendMessages(messages)
+		.then(() => {
 				window.alert("送信完了");
 				new LIFF().closeWindow();
 			}
