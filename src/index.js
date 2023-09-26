@@ -174,18 +174,20 @@ class LIFF{
 		liff.init(
 			{liffId: LIFF_ID}
 		)
-		.then(() => {this.getProfileJSON();})
+		.then(() => {this.getProfileJSON();
+			window.alert(this.userName+"---"+this.userId);
+		})
 		.then(() => {this.sendMessagesToLine();});
 	}
 	getProfileJSON(){//個人がLINEに登録しているプロフィールを取得するメソッド
 		console.log("getProfileJSON()...");
 		liff.getProfile()
-		.then(
-			(profile) => {
+		.then((profile) => {
 				this.userId = profile.userId;
 				this.userName = profile.displayName;
 			}
-		).catch(
+		)
+		.catch(
 			(error) => {window.alert("ERROR at getProfile()", error)}
 		);
 	}
@@ -201,10 +203,10 @@ class LIFF{
 				new LIFF().closeWindow();
 			}
 		).catch(
-			function(error){window.alert("ERROR at sendMessagesToLine()",error)}
+			(error) => {window.alert("ERROR at sendMessagesToLine()",error)}
 		);
 	}
-	closeWindow(){
+	closeWindow(){//webアプリのwindowを閉じるメソッド
 		console.log("closeWindow()...");
 		liff.closeWindow();
 	}
