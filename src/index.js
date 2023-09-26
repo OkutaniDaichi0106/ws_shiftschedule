@@ -137,7 +137,7 @@ class Shift{//シフト管理に関するクラス
 		}
 
 		//WebAPIに投げて、Pythonに処理してもらう
-		new Promise((resolve,rejects)=>{
+		new Promise((resolve)=>{
 				const liff = new LIFF();
 				new UploadToServer().postShiftJson(shift_JSON);
 				resolve();
