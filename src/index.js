@@ -173,12 +173,9 @@ class LIFF{
 		this.userId;
 		liff.init(
 			{liffId: LIFF_ID}
-		).then(
-			() =>{
-				this.getProfileJSON();
-				this.sendMessagesToLine();
-			}
-		);
+		)
+		.then(() => {this.getProfileJSON();})
+		.then(() => {this.sendMessagesToLine();});
 	}
 	getProfileJSON(){//個人がLINEに登録しているプロフィールを取得するメソッド
 		console.log("getProfileJSON()...");
@@ -187,7 +184,6 @@ class LIFF{
 			(profile) => {
 				this.userId = profile.userId;
 				this.userName = profile.displayName;
-				window.alert("get profile..."+"userId"+this.userId+"userName:"+this.userName);
 			}
 		).catch(
 			(error) => {window.alert("ERROR at getProfile()", error)}
