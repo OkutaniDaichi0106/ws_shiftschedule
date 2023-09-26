@@ -134,24 +134,10 @@ class Shift{//シフト管理に関するクラス
 		}
 
 		//WebAPIに投げて、Pythonに処理してもらう
-		new Promise((resolve,reject)=>{
-				const liff = new LIFF();
-				const uploadtoserver = new UploadToServer()
-				uploadtoserver.postShiftJson(shift_JSON);
-				
-				if(uploadtoserver.result() = "failed"){
-					reject();
-				}if(uploadtoserver.result() = "successed"){
-					resolve(liff);
-				}
-			}
-		).then((liff)=>{
-				liff.closeWindow();
-			}
-		).catch(()=>{
-				window.alert("シフト送信に失敗しました。");
-			}
-		);
+		const liff = new LIFF();
+		const uploadtoserver = new UploadToServer();
+		uploadtoserver.postShiftJson(shift_JSON);
+		liff.closeWindow();
 	}
 }
 class UploadToServer{
