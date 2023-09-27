@@ -154,15 +154,14 @@ class UploadToServer{
 				body: JSON.stringify(shiftData_json)
 			}
 		)
-		.then(
-			(response) => {return response.json();}
+		.then((response) => {
+				return response.json();
+			}
 		)
-		.then(
-			(data) => {
+		.then((data) => {
 				console.log("get data");
 			}
-		).catch(
-			(error) => {
+		).catch((error) => {
 				console.error("Error:", error);
 			}
 		);
